@@ -23,7 +23,7 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 [vet clinic] <a name="about-project"></a>
+# 📖 [School Library] <a name="about-project"></a>
 
 **[School Library]** is a school library management application that can be used to record what books are in the library and who borrows them. It is created using the OOP concept and allow user to:
 - Add new students or teachers.
@@ -125,7 +125,7 @@ If you like this project, please don't forget to follow me and give it a star.
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
-I would like to acknowledge and thank [Microverse](https://www.microverse.org/) for providing the template for this repository.
+I would like to acknowledge and thank [Microverse](https://www.microverse.org/) for providing the resources and the platform for this project.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
