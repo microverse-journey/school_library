@@ -1,8 +1,10 @@
-require_relative 'model/person'
 require_relative 'model/teacher'
+require_relative 'model/student'
 
-person = Person.new(17, parent_permission: false)
-p(person.can_use_services?)
+student = Student.new('Elementary', 17)
+p(student.can_use_services?)
 
-teacher = Teacher.new('math',27)
+teacher = Teacher.new('math', 27)
 p(teacher.can_use_services?)
+
+p(student.play_hooky)
