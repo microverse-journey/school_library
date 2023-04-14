@@ -11,5 +11,4 @@ class Classroom
     @students.push(student.id)
     student.classroom = self
   end
-
 end
