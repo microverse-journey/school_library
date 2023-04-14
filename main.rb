@@ -1,10 +1,9 @@
-require_relative 'model/teacher'
-require_relative 'model/student'
+require_relative 'model/person'
+require_relative 'model/nameable'
 
-student = Student.new('Elementary', 17)
-p(student.can_use_services?)
-
-teacher = Teacher.new('math', 27)
-p(teacher.can_use_services?)
-
-p(student.play_hooky)
+person = Person.new(22, 'maximilianus')
+person.correct_name
+capitalized_person = CapitalizeDecorator.new(person)
+capitalized_person.correct_name
+capitalized_trimmed_person = TrimmerDecorator.new(capitalized_person)
+p(capitalized_trimmed_person.correct_name)

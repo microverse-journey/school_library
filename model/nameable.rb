@@ -1,13 +1,13 @@
 class Nameable
-  def correctName
+  def correct_name
     raise NotImplementedError, "#{self.class} has not implemented method '#{__method__}'"
   end
-
 end
 
-class baseDecorator < Nameable
+class BaseDecorator < Nameable
   def initialize(nameable)
-    @nameable = nameable.new
+    @nameable = nameable
+    super()
   end
 
   def correct_name
@@ -15,14 +15,14 @@ class baseDecorator < Nameable
   end
 end
 
-class CapitalizeDecorator < baseDecorator
+class CapitalizeDecorator < BaseDecorator
   def correct_name
-    (@nameable.correct_name).capitalize()
+    @nameable.correct_name.capitalize
   end
 end
 
-class TrimmerDecorator < baseDecorator
+class TrimmerDecorator < BaseDecorator
   def correct_name
-    (@nameable.correct_name).truncate(10)
+    @nameable.correct_name.slice(0, 10)
   end
 end
