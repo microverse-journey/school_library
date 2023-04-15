@@ -2,22 +2,23 @@ require_relative 'book'
 require_relative 'student'
 require_relative 'teacher'
 require_relative 'rental'
+require 'pry'
 
 class App
   attr_reader :books, :people
 
   def initialize
     introduction
-    @books = []
-    @people = []
+    @books = [Book.new("title", "author")]
+    @people = [Student.new('cs', 23, "dami", parent_permission: true)]
+    @rentals = []
     @options = {
       '1' => :list_books,
       '2' => :list_people,
       '3' => :add_person,
       '4' => :add_book,
       '5' => :add_rental,
-      '6' => :list_rentals,
-      '7' => :exit
+      '6' => :list_rentals
     }
   end
 
@@ -34,14 +35,26 @@ class App
     puts ''
     puts '                     All Books'
     puts '----------------------------------------------------'
-    puts @books.length.positive? ? @books : 'No books found, choose an option to add a book'
+    if @books.length.positive?
+      @books.each_with_index do |book, index|
+        puts "#{index + 1}) title: \"#{book.title}\" author: #{book.author}"
+      end
+    else
+      puts 'No books found, choose an option to add a book'
+    end
   end
 
   def list_people
     puts ''
     puts '                     All People'
     puts '----------------------------------------------------'
-    puts @people.length.positive? ? @people : 'No Person found, choose an option to add a person'
+    if @people.length.positive?
+      @people.each_with_index do |person, index|
+        puts "#{index + 1}) [#{person.class.name}] name: #{person.name}, age: #{person.age}, ID: #{person.id}"
+      end
+    else
+      puts 'No Person found, choose an option to add a person'
+    end
   end
 
   def add_person()
@@ -83,50 +96,41 @@ class App
 
   def add_rental
     puts 'Select a book from the following list by number'
-
-    @books.each_with_index do |book, index|
-      puts "#{index}) title: \"#{book.title}\" author: #{book.author}"
-    end
+    list_books
     book = gets.chomp.to_i
 
     puts 'Select a person from the following list by number (not ID)'
-    @people.each_with_index do |person, index|
-      puts "#{index}) #{person}"
-    end
+    list_people
     person = gets.chomp.to_i
 
     print 'Enter rental date: '
     date = gets.chomp
 
-    @rentals << Rental.new(@people[person], @books[book], date)
+    @rentals << Rental.new(@people[person - 1], @books[book - 1], date)
     puts 'Rental created successfully'
   end
 
   def list_rentals
-    puts 'Select a person from the following list by number (not ID)'
-    @people.each_with_index do |person, index|
-      puts "#{index}) #{person}"
-    end
+    puts 'Select a person from the following list by ID'
+    list_people
     person = gets.chomp.to_i
     rentals = @rentals.select { |rental| rental.person.id == person }
 
     puts ''
     if rentals.empty?
-      puts 'No rentals for this person'
+      puts 'No rentals from person with ID: #{person}'
     else
-      puts "         Rentals by #{@people[person].name}"
+      puts "         Rentals by person with ID: #{person}"
       puts '----------------------------------------------------'
-      puts rentals
+      rentals.each do |rent|
+        puts "Date: #{rent.date}, Book \"#{rent.book.title}\" by #{rent.book.author}"
+      end
     end
   end
 
   def introduction
     puts ''
-    puts '             OOP SCHOOL LIBRARY'
-    puts '----------------------------------------------------'
-    puts ''
     puts 'Please choose an option by entering a number:'
-    puts ''
     puts '1 - List all books'
     puts '2 - List all people'
     puts '3 - Create a person'
@@ -138,12 +142,11 @@ class App
     print 'Enter number: '
   end
 
-  def actions(option)
+  def trigger(option)
     if @options[option]
       send(@options[option])
     else
       puts 'Invalid option'
     end
   end
-  
 end
