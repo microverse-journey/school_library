@@ -9,8 +9,8 @@ class App
 
   def initialize
     introduction
-    @books = [Book.new("title", "author")]
-    @people = [Student.new('cs', 23, "dami", parent_permission: true)]
+    @books = []
+    @people = []
     @rentals = []
     @options = {
       '1' => :list_books,
@@ -118,7 +118,7 @@ class App
 
     puts ''
     if rentals.empty?
-      puts 'No rentals from person with ID: #{person}'
+      puts "No rentals from person with ID: #{person}"
     else
       puts "         Rentals by person with ID: #{person}"
       puts '----------------------------------------------------'

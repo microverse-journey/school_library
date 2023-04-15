@@ -11,9 +11,11 @@ def main
 
     if (1..6).include?(input.to_i)
       app.trigger(input)
-    else
+    elsif input == '7'
       puts 'Thank you for using the OOP school library'
       break
+    else
+      puts 'Invalid option'
     end
   end
 end
