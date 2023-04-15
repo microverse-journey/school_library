@@ -1,9 +1,23 @@
-require_relative 'model/person'
-require_relative 'model/nameable'
+require './model/app'
 
-person = Person.new(22, 'maximilianus')
-person.correct_name
-capitalized_person = CapitalizeDecorator.new(person)
-capitalized_person.correct_name
-capitalized_trimmed_person = TrimmerDecorator.new(capitalized_person)
-p(capitalized_trimmed_person.correct_name)
+def main
+  app = App.new
+  puts ''
+  puts '             OOP SCHOOL LIBRARY'
+  puts '----------------------------------------------------'
+  loop do
+    app.introduction
+    input = gets.chomp
+
+    if (1..6).include?(input.to_i)
+      app.trigger(input)
+    elsif input == '7'
+      puts 'Thank you for using the OOP school library'
+      break
+    else
+      puts 'Invalid option'
+    end
+  end
+end
+
+main
